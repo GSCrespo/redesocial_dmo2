@@ -15,38 +15,42 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
         binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupListeners()
     }
 
     private fun setupListeners() {
 
-        binding.btnSend.setOnClickListener{
-        val email = binding.txtName.toString()
-        val password = binding.txtSenha.toString()
-
-            if(binding.txtName.toString().isNotEmpty()){
-
-                if(binding.txtSenha.toString().isNotEmpty()){
-
-                    firebaseAuth
-                        .signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                startActivity(Intent(this, HomeActivity::class.java))
-                                finish()
-                            } else {
-                                Toast.makeText(this, "Erro no login", Toast.LENGTH_LONG).show()
-                            }
-                        }
-
-                }
-
-            }
-
+        binding.buttonLogin.setOnClickListener{
+            handleLogin()
         }
+    }
+
+
+    private fun handleLogin(){
+        val email = binding.textEmail.text.toString()
+        val password = binding.textPassword.text.toString()
+
+        if(email.isNotEmpty() && password.isNotEmpty()){
+            firebaseAuth
+                .signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        launchHome()
+                    } else {
+                        Toast.makeText(this, "Erro na validação do login", Toast.LENGTH_LONG).show()
+                    }
+                }
+        }else{
+            Toast.makeText(this, "Preencha os dois campos", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun launchHome(){
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
     }
 
 }

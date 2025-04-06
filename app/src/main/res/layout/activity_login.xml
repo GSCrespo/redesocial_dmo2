@@ -7,54 +7,70 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+
+    <ImageView
+        android:id="@+id/logoImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guidelineH20"
+        />
+
+
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineH20"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintHeight_percent="0.4"
-        />
+        app:layout_constraintGuide_percent="0.35" />
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textlayout_email"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/img_logo"
-        android:layout_marginTop="56dp"
+        android:layout_margin="16dp"
+        android:hint="email"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineH20">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textlayout_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="senha"
+        app:layout_constraintEnd_toEndOf="@id/textlayout_email"
+        app:layout_constraintStart_toStartOf="@id/textlayout_email"
+        app:layout_constraintTop_toBottomOf="@id/textlayout_email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_login"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="parent"
-
-        />
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt_name"
-        app:layout_constraintStart_toStartOf="@id/img_logo"
-        app:layout_constraintBottom_toBottomOf="@id/img_logo"
-        android:hint="Insira o nome"
-        />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt_senha"
-        android:hint="Insira a senha"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textlayout_password"
+        app:backgroundTint="@android:color/holo_blue_light"/>
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Acionar"
-        android:id="@+id/btn_send"
-        />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="novo usuario"
-
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
