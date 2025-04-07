@@ -1,20 +1,21 @@
 package com.ifsp.microredesocial.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.ifsp.microredesocial.R
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
 import com.ifsp.microredesocial.databinding.ActivityProfileBinding
+import com.ifsp.microredesocial.util.Base64Converter
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
-
+    private val firebaseAuth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,6 +42,30 @@ class ProfileActivity : AppCompatActivity() {
                 PickVisualMediaRequest(
                 ActivityResultContracts.PickVisualMedia.ImageOnly)
             )
+        }
+
+
+        binding.buttonSalvar.setOnClickListener {
+            if (firebaseAuth.currentUser != null){
+                val email = firebaseAuth.currentUser!!.email.toString()
+                val username = binding.textNameUser.text.toString()
+                val nomeCompleto = binding.textNomeCompleto.text.toString()
+                val fotoPerfilString = Base64Converter.drawableToString(binding.logoProfile.drawable)
+                val db = Firebase.firestore
+                val dados = hashMapOf(
+                    "NomeCompleto" to nomeCompleto,
+                    "Username" to username,
+                    "FotoPerfil" to fotoPerfilString
+                )
+                db.collection("usuarios").document(email)
+                    .set(dados)
+                    .addOnSuccessListener {
+                        startActivity(Intent(this, HomeActivity::class.java))
+                        finish()
+                    }
+            }else{
+                Toast.makeText(this,"é preciso estar logado no sistema",Toast.LENGTH_LONG).show()
+            }
         }
     }
 

@@ -14,7 +14,9 @@
         android:layout_height="256dp"
         android:src="@drawable/empty_profile"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/guidelineH25"
+        android:layout_marginTop="48dp"
         />
 
     <androidx.constraintlayout.widget.Guideline
