@@ -26,16 +26,17 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun setupListeners(){
 
-        binding.buttonAlterarFoto.setOnClickListener {
-            val galeria = registerForActivityResult(
-                ActivityResultContracts.PickVisualMedia()){
-                    uri ->
-                if (uri != null){
-                    binding.logoProfile.setImageURI(uri)
-                }else{
-                    Toast.makeText(this,"Nenhuma foto foi selecionada",Toast.LENGTH_LONG).show()
-                }
+        val galeria = registerForActivityResult(
+            ActivityResultContracts.PickVisualMedia()){
+                uri ->
+            if (uri != null){
+                binding.logoProfile.setImageURI(uri)
+            }else{
+                Toast.makeText(this,"Nenhuma foto foi selecionada",Toast.LENGTH_LONG).show()
             }
+        }
+
+        binding.buttonAlterarFoto.setOnClickListener {
             galeria.launch(
                 PickVisualMediaRequest(
                 ActivityResultContracts.PickVisualMedia.ImageOnly)
