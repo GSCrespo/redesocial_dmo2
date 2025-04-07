@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.LoginActivity">
+    tools:context=".ui.SignUpActivity">
 
 
     <ImageView
@@ -14,16 +14,17 @@
         android:layout_height="wrap_content"
         android:src="@drawable/logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/guidelineH20"
+        app:layout_constraintBottom_toTopOf="@id/guidelineH35"
         />
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH20"
+        android:id="@+id/guidelineH35"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.35" />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textlayout_email"
@@ -32,7 +33,7 @@
         android:layout_margin="16dp"
         android:hint="email"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guidelineH20">
+        app:layout_constraintTop_toBottomOf="@id/guidelineH35">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/text_email"
@@ -46,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="senha"
+        android:hint="insira a senha"
         app:layout_constraintEnd_toEndOf="@id/textlayout_email"
         app:layout_constraintStart_toStartOf="@id/textlayout_email"
         app:layout_constraintTop_toBottomOf="@id/textlayout_email">
@@ -59,30 +60,47 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textlayout_passwordConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="insira novamente a senha"
+        app:layout_constraintEnd_toEndOf="@id/textlayout_password"
+        app:layout_constraintStart_toStartOf="@id/textlayout_password"
+        app:layout_constraintTop_toBottomOf="@id/textlayout_password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_passwordConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_login"
+        android:id="@+id/button_signUp"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:text="login"
+        android:text="Cadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textlayout_password"
+        app:layout_constraintTop_toBottomOf="@id/textlayout_passwordConfirm"
         app:backgroundTint="@android:color/holo_blue_light"/>
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_cadastrar"
+        android:id="@+id/button_Home"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Cadastar usuario"
+        android:text="Voltar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_login"
-        app:backgroundTint="@android:color/holo_orange_light"/>
-
+        app:layout_constraintTop_toBottomOf="@id/button_signUp"
+        app:backgroundTint="@android:color/holo_purple"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
