@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.HomeActivity">
+    tools:context=".ui.ProfileActivity">
 
 
     <ImageView
@@ -15,21 +15,42 @@
         android:src="@drawable/empty_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/textlayout_username"
+        app:layout_constraintBottom_toTopOf="@id/guidelineH25"
         android:layout_marginTop="48dp"
         />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineH25"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_alterarFoto"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="alterar foto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineH25"
+        app:backgroundTint="@android:color/holo_blue_light"/>
+
+
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textlayout_username"
+        android:id="@+id/textlayout_nomeUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/logoProfile">
+        android:hint="Nome de usuário(Publico)"
+        app:layout_constraintEnd_toEndOf="@id/button_alterarFoto"
+        app:layout_constraintStart_toStartOf="@id/button_alterarFoto"
+        app:layout_constraintTop_toBottomOf="@id/button_alterarFoto">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_username"
+            android:id="@+id/text_nameUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
@@ -37,13 +58,14 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textlayout_nameCompleto"
+        android:id="@+id/textlayout_nomeCompleto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Nome Completo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textlayout_username">
+        app:layout_constraintEnd_toEndOf="@id/textlayout_nomeUsuario"
+        app:layout_constraintStart_toStartOf="@id/textlayout_nomeUsuario"
+        app:layout_constraintTop_toBottomOf="@id/textlayout_nomeUsuario">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/text_nomeCompleto"
@@ -53,37 +75,17 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH20"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
-
-
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_logout"
+        android:id="@+id/button_Salvar"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="Sair"
+        android:layout_marginTop="12dp"
+        android:text="Salvar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guidelineH20"
-        app:backgroundTint="@android:color/holo_blue_light"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_profile"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="Profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_logout"
-        app:backgroundTint="@android:color/holo_blue_light"/>
+        app:layout_constraintTop_toBottomOf="@id/textlayout_nomeCompleto"
+        app:backgroundTint="@android:color/holo_green_light"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.ifsp.microredesocial
+package com.ifsp.microredesocial.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -26,6 +26,10 @@ class LoginActivity : AppCompatActivity() {
         binding.buttonLogin.setOnClickListener{
             handleLogin()
         }
+
+        binding.buttonCadastrar.setOnClickListener {
+            launchSignUp()
+        }
     }
 
 
@@ -50,6 +54,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun launchHome(){
         startActivity(Intent(this, HomeActivity::class.java))
+        finish()
+    }
+
+    private fun launchSignUp(){
+        startActivity(Intent(this, SignUpActivity::class.java))
         finish()
     }
 
