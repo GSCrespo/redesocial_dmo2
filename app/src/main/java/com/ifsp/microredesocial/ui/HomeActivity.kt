@@ -30,11 +30,11 @@ class HomeActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     val document = task.result
-                    val imageString = document.data!!["fotoPerfil"].toString()
+                    val imageString = document.data!!["FotoPerfil"].toString()
                     val bitmap = Base64Converter.stringToBitmap(imageString)
                     binding.logoProfile.setImageBitmap(bitmap)
-                    binding.textUsername.text = document.data!!["username"].toString()
-                    binding.textNomeCompleto.text = document.data!!["nomeCompleto"].toString()
+                    binding.textUsername.text = document.data!!["Username"].toString()
+                    binding.textNomeCompleto.text = document.data!!["NomeCompleto"].toString()
                 }
             }
 
