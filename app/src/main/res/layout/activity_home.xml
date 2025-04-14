@@ -15,42 +15,29 @@
         android:src="@drawable/empty_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/textlayout_username"
-        android:layout_marginTop="48dp"
+        app:layout_constraintBottom_toTopOf="@id/text_username"
+        android:layout_marginTop="12dp"
         />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textlayout_username"
+    <TextView
+        android:id="@+id/text_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Username"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/logoProfile">
+        app:layout_constraintBottom_toBottomOf="@id/logoProfile" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textlayout_nameCompleto"
+    <TextView
+        android:id="@+id/text_nomeCompleto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Nome Completo"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textlayout_username">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_nomeCompleto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@id/text_username" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -64,9 +51,9 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_logout"
         style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
+        android:layout_width="256dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="12dp"
         android:text="Sair"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
