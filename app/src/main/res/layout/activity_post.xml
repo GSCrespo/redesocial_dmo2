@@ -15,11 +15,12 @@
         android:src="@drawable/empty_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="48dp"
         />
 
     <TextView
-        android:id="@+id/text_descricao"
+        android:id="@+id/post_descricao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
