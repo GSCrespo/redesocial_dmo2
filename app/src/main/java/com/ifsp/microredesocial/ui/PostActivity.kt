@@ -28,7 +28,7 @@ class PostActivity : AppCompatActivity() {
         val jsonRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
             { response ->
-                binding.textDescricao.text = response.getString("descricao")
+                binding.postDescricao.text = response.getString("descricao")
                 val queue = Volley.newRequestQueue(this)
                 val urlImage = "http://10.105.68.94:8080/images/" +
                         response.getString("foto")

@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
                 .signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        launchHome()
+                        launchLatitude()
                     } else {
                         Toast.makeText(this, "Erro na validação do login", Toast.LENGTH_LONG).show()
                     }
@@ -52,8 +52,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun launchHome(){
-        startActivity(Intent(this, HomeActivity::class.java))
+    private fun launchLatitude(){
+        startActivity(Intent(this, LocationActivity::class.java))
         finish()
     }
 
