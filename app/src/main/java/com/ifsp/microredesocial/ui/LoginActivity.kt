@@ -18,7 +18,11 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
+
         setupListeners()
+        checkUser()
     }
 
     private fun setupListeners() {
@@ -29,6 +33,13 @@ class LoginActivity : AppCompatActivity() {
 
         binding.buttonCadastrar.setOnClickListener {
             launchSignUp()
+        }
+    }
+
+    private fun checkUser(){
+
+        if(firebaseAuth.currentUser != null){
+            launhcHome()
         }
     }
 
@@ -59,6 +70,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun launchSignUp(){
         startActivity(Intent(this, SignUpActivity::class.java))
+        finish()
+    }
+    private fun launhcHome(){
+        startActivity(Intent(this, HomeActivity::class.java))
         finish()
     }
 
