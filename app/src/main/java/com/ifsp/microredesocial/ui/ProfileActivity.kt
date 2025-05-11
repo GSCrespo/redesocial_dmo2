@@ -46,23 +46,14 @@ class ProfileActivity : AppCompatActivity() {
 
 
         binding.buttonSalvar.setOnClickListener {
+
             if (firebaseAuth.currentUser != null){
-                val email = firebaseAuth.currentUser!!.email.toString()
-                val username = binding.textNameUser.text.toString()
-                val nomeCompleto = binding.textNomeCompleto.text.toString()
-                val fotoPerfilString = Base64Converter.drawableToString(binding.logoProfile.drawable)
-                val db = Firebase.firestore
-                val dados = hashMapOf(
-                    "NomeCompleto" to nomeCompleto,
-                    "Username" to username,
-                    "FotoPerfil" to fotoPerfilString
-                )
-                db.collection("usuarios").document(email)
-                    .set(dados)
-                    .addOnSuccessListener {
-                        startActivity(Intent(this, HomeActivity::class.java))
-                        finish()
-                    }
+                if(binding.textAlterarSenha.text != null){
+                    salvarDados()
+                }else{
+                    atualizarDadosParciais()
+                }
+
             }else{
                 Toast.makeText(this,"é preciso estar logado no sistema",Toast.LENGTH_LONG).show()
             }
@@ -70,5 +61,68 @@ class ProfileActivity : AppCompatActivity() {
     }
 
 
+    private fun atualizarDadosParciais(){
+        val email = firebaseAuth.currentUser!!.email.toString()
+        val username = binding.textNameUser.text.toString()
+        val nomeCompleto = binding.textNomeCompleto.text.toString()
+        val novaSenha = binding.textAlterarSenha.text.toString()
+        val fotoPerfilString = Base64Converter.drawableToString(binding.logoProfile.drawable)
+        val db = Firebase.firestore
 
+        val dados = hashMapOf(
+            "NomeCompleto" to nomeCompleto,
+            "Username" to username,
+            "password" to novaSenha,
+            "FotoPerfil" to fotoPerfilString
+        )
+        db.collection("usuarios").document(email)
+            .set(dados)
+            .addOnSuccessListener {
+                startActivity(Intent(this, HomeActivity::class.java))
+                finish()
+            }
+    }
+
+
+    private fun salvarDados(){
+
+        val email = firebaseAuth.currentUser!!.email.toString()
+        val username = binding.textNameUser.text.toString()
+        val nomeCompleto = binding.textNomeCompleto.text.toString()
+        val novaSenha = binding.textAlterarSenha.text.toString()
+        val fotoPerfilString = Base64Converter.drawableToString(binding.logoProfile.drawable)
+        val db = Firebase.firestore
+        val firebaseAuth = FirebaseAuth.getInstance()
+
+        if (novaSenha.length < 6) {
+            Toast.makeText(this, "A nova senha deve conter pelo menos 6 caracteres", Toast.LENGTH_LONG).show()
+            return
+        }else {
+            firebaseAuth.currentUser?.updatePassword(novaSenha)?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Senha alterada com sucesso!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Erro ao alterar senha: ${task.exception?.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+
+        val dados = hashMapOf(
+            "NomeCompleto" to nomeCompleto,
+            "Username" to username,
+            "password" to novaSenha,
+            "FotoPerfil" to fotoPerfilString
+        )
+        db.collection("usuarios").document(email)
+            .set(dados)
+            .addOnSuccessListener {
+                startActivity(Intent(this, HomeActivity::class.java))
+                finish()
+            }
+
+    }
 }
