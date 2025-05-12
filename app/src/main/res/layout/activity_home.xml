@@ -55,12 +55,43 @@
         app:layout_constraintTop_toBottomOf="@id/button_sair"
         app:backgroundTint="@android:color/holo_blue_light"/>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutCidade"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/button_feed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/button_buscar">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextCidade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Buscar por cidade" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_buscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:icon="@android:drawable/ic_menu_search"
+        android:text=""
+        app:iconGravity="textStart"
+        android:backgroundTint="@color/white"
+        app:layout_constraintTop_toTopOf="@id/textInputLayoutCidade"
+        app:layout_constraintBottom_toBottomOf="@id/textInputLayoutCidade"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/button_feed"
+        app:layout_constraintTop_toBottomOf="@id/button_buscar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

@@ -34,7 +34,6 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         setupListeners()
     }
 
@@ -53,6 +52,12 @@ class HomeActivity : AppCompatActivity() {
         binding.buttonProfile.setOnClickListener {
             launchProfile()
         }
+        binding.buttonBuscar.setOnClickListener {
+            val cidade = binding.editTextCidade.text.toString().trim()
+
+            buscarPostsPorCidade(cidade)
+
+        }
     }
 
     private fun signOut(){
@@ -67,32 +72,6 @@ class HomeActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun loadFeed(){
-
-        val db = Firebase.firestore
-
-        db.collection("posts").get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful){
-                    val document = task.result
-                    val posts = ArrayList<Post>()
-                    for (document in document.documents) {
-                        val descricao = document.data!!["descricao"].toString()
-                        val localizacao = document.getString("localizacao") ?: "Indefinido"
-                        val imageString = document.data!!["imageString"].toString()
-                        val bitmap = Base64Converter.stringToBitmap(imageString)
-                        posts.add(Post(descricao, bitmap,localizacao))
-                    }
-                    adapter = PostAdapter(posts)
-                    binding.recyclerView.layoutManager = LinearLayoutManager(this)
-                    binding.recyclerView.adapter = adapter
-                }
-                else{
-                    Toast.makeText(this,"erro ao carregar post",Toast.LENGTH_LONG).show()
-
-                }
-            }
-    }
 
     private fun carregarPostsPaginados() {
         if (carregando) return  // Evita múltiplas chamadas simultâneas
@@ -138,6 +117,35 @@ class HomeActivity : AppCompatActivity() {
             carregando = false
             Toast.makeText(this, "Erro ao carregar posts: ${it.message}", Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun buscarPostsPorCidade(cidade: String) {
+        val db = Firebase.firestore
+        db.collection("posts")
+            .whereEqualTo("localizacao", cidade)
+            .get()
+            .addOnSuccessListener { result ->
+                val posts = result.mapNotNull { doc ->
+                    val descricao = doc.getString("descricao") ?: ""
+                    val local = doc.getString("localizacao") ?: "Indefinida"
+                    val imageString = doc.getString("imageString") ?: return@mapNotNull null
+                    val foto = Base64Converter.stringToBitmap(imageString)
+                    Post(descricao, foto, local)
+                }
+
+                if (::adapter.isInitialized) {
+                    adapter.limpar()
+                    adapter.adicionarPosts(posts)
+                } else {
+                    listaDePosts.addAll(posts)
+                    adapter = PostAdapter(listaDePosts)
+                    binding.recyclerView.layoutManager = LinearLayoutManager(this)
+                    binding.recyclerView.adapter = adapter
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Erro ao buscar posts", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun launchProfile(){

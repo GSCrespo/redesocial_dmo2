@@ -37,4 +37,9 @@ class PostAdapter (private val posts: MutableList<Post>) :
         posts.addAll(novos)
         notifyItemRangeInserted(start, novos.size)
     }
+
+    fun limpar() {
+        posts.clear()
+        notifyDataSetChanged()
+    }
 }
