@@ -23,6 +23,26 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email
+
+        if (userEmail != null) {
+            Firebase.firestore.collection("usuarios").document(userEmail).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val base64Foto = document.getString("FotoPerfil")
+                        if (!base64Foto.isNullOrEmpty()) {
+                            val bitmap = Base64Converter.stringToBitmap(base64Foto)
+                            if (bitmap != null) {
+                                binding.logoProfile.setImageBitmap(bitmap)
+                            }
+                        }
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Erro ao carregar foto de perfil", Toast.LENGTH_SHORT).show()
+                }
+        }
+
         setupListeners()
     }
 
