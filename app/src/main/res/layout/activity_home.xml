@@ -16,7 +16,7 @@
         android:text="Novo Post"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:backgroundTint="@android:color/holo_blue_light"/>
+        app:backgroundTint="@android:color/holo_green_dark"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_profile"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/button_post"
         app:layout_constraintTop_toTopOf="parent"
-        app:backgroundTint="@android:color/holo_blue_light"/>
+        app:backgroundTint="@android:color/holo_orange_light"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_sair"
@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_post"
-        app:backgroundTint="@android:color/holo_blue_light"/>
+        app:backgroundTint="@android:color/holo_red_dark"/>
 
 
     <com.google.android.material.button.MaterialButton

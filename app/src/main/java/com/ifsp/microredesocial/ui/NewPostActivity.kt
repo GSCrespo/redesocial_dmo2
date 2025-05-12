@@ -13,15 +13,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.Firebase
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 import com.ifsp.microredesocial.R
+import com.ifsp.microredesocial.adapter.PostAdapter
 import com.ifsp.microredesocial.databinding.ActivityNewPostBinding
+import com.ifsp.microredesocial.model.Post
 import com.ifsp.microredesocial.util.Base64Converter
 import com.ifsp.microredesocial.util.LocalizacaoHelper
 
 class NewPostActivity : AppCompatActivity() , LocalizacaoHelper.Callback {
+
 
     private lateinit var binding: ActivityNewPostBinding
     private val db = Firebase.firestore
@@ -81,9 +88,9 @@ class NewPostActivity : AppCompatActivity() , LocalizacaoHelper.Callback {
                         val autor = document.getString("Username") ?: "Desconhecido"
                         val fotoPostString = Base64Converter.drawableToString(binding.logoProfile.drawable)
                         val descricao = binding.textDescricao.text.toString()
-
                         val localizacaoInput = binding.txtCidade.text.toString()
                         var localizacao: String? = null
+
 
                         if (localizacaoInput.isNotBlank()) {
                             localizacao = localizacaoInput
@@ -92,6 +99,7 @@ class NewPostActivity : AppCompatActivity() , LocalizacaoHelper.Callback {
 
                         val dados = hashMapOf(
                             "autor" to autor,
+                            "data" to FieldValue.serverTimestamp(),
                             "descricao" to descricao,
                             "imageString" to fotoPostString
                         )
@@ -123,6 +131,7 @@ class NewPostActivity : AppCompatActivity() , LocalizacaoHelper.Callback {
 
 
     }
+
 
 
     private fun solicitarLocalizacao() {

@@ -7,7 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.Firebase
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 import com.ifsp.microredesocial.R
 import com.ifsp.microredesocial.adapter.PostAdapter
@@ -18,9 +20,14 @@ import com.ifsp.microredesocial.util.Base64Converter
 
 class HomeActivity : AppCompatActivity() {
 
+
+    private val listaDePosts = mutableListOf<Post>()
+    private var ultimoTimestamp: Timestamp? = null
+    private var carregando = false
     private lateinit var binding: ActivityHomeBinding
     private val firebaseAuth = FirebaseAuth.getInstance()
     private lateinit var adapter: PostAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,10 +45,13 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.buttonFeed.setOnClickListener {
-            loadFeed()
+            carregarPostsPaginados()
         }
         binding.buttonPost.setOnClickListener {
             launchPost()
+        }
+        binding.buttonProfile.setOnClickListener {
+            launchProfile()
         }
     }
 
@@ -73,7 +83,7 @@ class HomeActivity : AppCompatActivity() {
                         val bitmap = Base64Converter.stringToBitmap(imageString)
                         posts.add(Post(descricao, bitmap,localizacao))
                     }
-                    adapter = PostAdapter(posts.toTypedArray())
+                    adapter = PostAdapter(posts)
                     binding.recyclerView.layoutManager = LinearLayoutManager(this)
                     binding.recyclerView.adapter = adapter
                 }
@@ -82,6 +92,52 @@ class HomeActivity : AppCompatActivity() {
 
                 }
             }
+    }
+
+    private fun carregarPostsPaginados() {
+        if (carregando) return  // Evita múltiplas chamadas simultâneas
+        carregando = true
+
+        val db = Firebase.firestore
+        var query = db.collection("posts")
+            .orderBy("data", Query.Direction.DESCENDING)
+            .limit(5)
+
+        if (ultimoTimestamp != null) {
+            query = query.startAfter(ultimoTimestamp!!)
+        }
+
+        query.get().addOnSuccessListener { snapshot ->
+            carregando = false
+
+            if (!snapshot.isEmpty) {
+                val novosPosts = snapshot.map { doc ->
+                    val descricao = doc.getString("descricao") ?: ""
+                    val localizacao = doc.getString("localizacao") ?: ""
+                    val imageString = doc.getString("imageString") ?: ""
+                    val bitmap = Base64Converter.stringToBitmap(imageString)
+                    Post(descricao, bitmap, localizacao)
+                }
+
+                // Salva o último timestamp para a próxima página
+                ultimoTimestamp = snapshot.documents.last().getTimestamp("data")
+
+                if (::adapter.isInitialized) {
+                    adapter.adicionarPosts(novosPosts)
+                } else {
+                    listaDePosts.addAll(novosPosts)
+                    adapter = PostAdapter(listaDePosts)
+                    binding.recyclerView.layoutManager = LinearLayoutManager(this)
+                    binding.recyclerView.adapter = adapter
+                }
+            } else {
+                Toast.makeText(this, "Nenhum post encontrado", Toast.LENGTH_SHORT).show()
+            }
+
+        }.addOnFailureListener {
+            carregando = false
+            Toast.makeText(this, "Erro ao carregar posts: ${it.message}", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun launchProfile(){

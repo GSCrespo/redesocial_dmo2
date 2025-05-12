@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ifsp.microredesocial.R
 import com.ifsp.microredesocial.model.Post
 
-class PostAdapter (private val posts: Array<Post>) :
+class PostAdapter (private val posts: MutableList<Post>) :
     RecyclerView.Adapter<PostAdapter.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
@@ -30,5 +30,11 @@ class PostAdapter (private val posts: Array<Post>) :
         holder.txtDescricao.text = posts[position].getDescricao()
         holder.localizacao.text = posts[position].getLocalizacao()
         holder.imgPost.setImageBitmap(posts[position].getFoto())
+    }
+
+    fun adicionarPosts(novos: List<Post>) {
+        val start = posts.size
+        posts.addAll(novos)
+        notifyItemRangeInserted(start, novos.size)
     }
 }
