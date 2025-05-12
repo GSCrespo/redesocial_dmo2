@@ -90,7 +90,7 @@ class NewPostActivity : AppCompatActivity() , LocalizacaoHelper.Callback {
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
                         val autor = document.getString("Username") ?: "Desconhecido"
-                        val fotoPostString = Base64Converter.drawableToString(binding.logoProfile.drawable)
+                        val fotoPostString = Base64Converter.drawableToString(binding.logoProfile.drawable) ?: null
                         val descricao = binding.textDescricao.text.toString()
                         val localizacaoInput = binding.txtCidade.text.toString()
                         var localizacao: String? = null

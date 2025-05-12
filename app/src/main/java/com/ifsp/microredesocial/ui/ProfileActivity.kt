@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
+import com.ifsp.microredesocial.R
 import com.ifsp.microredesocial.databinding.ActivityProfileBinding
 import com.ifsp.microredesocial.util.Base64Converter
 
@@ -48,7 +49,7 @@ class ProfileActivity : AppCompatActivity() {
         binding.buttonSalvar.setOnClickListener {
 
             if (firebaseAuth.currentUser != null){
-                if(binding.textAlterarSenha.text != null){
+                if(binding.textAlterarSenha.text.toString().isNotBlank()){
                     salvarDados()
                 }else{
                     atualizarDadosParciais()
@@ -66,12 +67,15 @@ class ProfileActivity : AppCompatActivity() {
 
 
     private fun atualizarDadosParciais(){
+        val db = Firebase.firestore
         val email = firebaseAuth.currentUser!!.email.toString()
         val username = binding.textNameUser.text.toString()
         val nomeCompleto = binding.textNomeCompleto.text.toString()
         val novaSenha = binding.textAlterarSenha.text.toString()
-        val fotoPerfilString = Base64Converter.drawableToString(binding.logoProfile.drawable)
-        val db = Firebase.firestore
+
+        val drawable = binding.logoProfile.drawable ?: getDrawable(R.drawable.empty_profile)
+        val fotoPerfilString = Base64Converter.drawableToString(drawable!!)
+
 
         val dados = hashMapOf(
             "NomeCompleto" to nomeCompleto,
@@ -90,13 +94,18 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun salvarDados(){
 
+        val db = Firebase.firestore
+        val firebaseAuth = FirebaseAuth.getInstance()
+
         val email = firebaseAuth.currentUser!!.email.toString()
         val username = binding.textNameUser.text.toString()
         val nomeCompleto = binding.textNomeCompleto.text.toString()
         val novaSenha = binding.textAlterarSenha.text.toString()
-        val fotoPerfilString = Base64Converter.drawableToString(binding.logoProfile.drawable)
-        val db = Firebase.firestore
-        val firebaseAuth = FirebaseAuth.getInstance()
+
+        val drawable = binding.logoProfile.drawable ?: getDrawable(R.drawable.empty_profile)
+        val fotoPerfilString = Base64Converter.drawableToString(drawable!!)
+
+
 
         if (novaSenha.length < 6) {
             Toast.makeText(this, "A nova senha deve conter pelo menos 6 caracteres", Toast.LENGTH_LONG).show()
