@@ -78,10 +78,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:icon="@android:drawable/ic_menu_search"
-        android:text=""
-        app:iconGravity="textStart"
-        android:backgroundTint="@color/white"
+        android:text="Buscar"
+        app:iconGravity="end"
+        app:backgroundTint="@android:color/holo_blue_light"
         app:layout_constraintTop_toTopOf="@id/textInputLayoutCidade"
         app:layout_constraintBottom_toBottomOf="@id/textInputLayoutCidade"
         app:layout_constraintEnd_toEndOf="parent"/>
