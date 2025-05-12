@@ -58,6 +58,10 @@ class ProfileActivity : AppCompatActivity() {
                 Toast.makeText(this,"é preciso estar logado no sistema",Toast.LENGTH_LONG).show()
             }
         }
+
+        binding.buttonVoltar.setOnClickListener {
+            launchHome()
+        }
     }
 
 
@@ -124,5 +128,11 @@ class ProfileActivity : AppCompatActivity() {
                 finish()
             }
 
+    }
+
+
+    private fun launchHome(){
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
     }
 }

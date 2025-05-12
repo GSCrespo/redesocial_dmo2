@@ -80,7 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Alterar senha"
+        android:hint="Alterar senha (não obrigatório)"
         app:layout_constraintEnd_toEndOf="@id/textlayout_nomeCompleto"
         app:layout_constraintStart_toStartOf="@id/textlayout_nomeCompleto"
         app:layout_constraintTop_toBottomOf="@id/textlayout_nomeCompleto">
@@ -89,7 +89,8 @@
             android:id="@+id/text_alterarSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="text"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -103,6 +104,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textlayout_alterarSenha"
         app:backgroundTint="@android:color/holo_green_light"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_Voltar"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Voltar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_Salvar"
+        app:backgroundTint="@android:color/holo_purple"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

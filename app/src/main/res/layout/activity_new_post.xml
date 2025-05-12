@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txt_cidade"
-        android:hint="Endereco da cidade aqui"
+        android:hint="Sua cidade aparecerá aqui"
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,11 +73,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="receber localizacao"
+        android:text="Enivar localização"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_cidade"
-        app:backgroundTint="@android:color/holo_blue_light"/>
+        app:backgroundTint="@android:color/holo_green_light"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_enviarPost"
@@ -89,6 +89,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_getLocalizacao"
-        app:backgroundTint="@android:color/holo_blue_light"/>
+        app:backgroundTint="@android:color/holo_green_dark"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_Voltar"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Voltar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_enviarPost"
+        app:backgroundTint="@android:color/holo_purple"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
