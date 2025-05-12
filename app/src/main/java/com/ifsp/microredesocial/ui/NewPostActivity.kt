@@ -1,6 +1,7 @@
 package com.ifsp.microredesocial.ui
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.os.Bundle
@@ -61,7 +62,9 @@ class NewPostActivity : AppCompatActivity() , LocalizacaoHelper.Callback {
             solicitarLocalizacao()
         }
 
-
+        binding.buttonEnviarPost.setOnClickListener {
+            salvarPost()
+        }
     }
 
 
@@ -78,20 +81,30 @@ class NewPostActivity : AppCompatActivity() , LocalizacaoHelper.Callback {
                         val autor = document.getString("Username") ?: "Desconhecido"
                         val fotoPostString = Base64Converter.drawableToString(binding.logoProfile.drawable)
                         val descricao = binding.textDescricao.text.toString()
-                        val localizacao = "" // coloque sua lógica aqui
+
+                        val localizacaoInput = binding.txtCidade.text.toString()
+                        var localizacao: String? = null
+
+                        if (localizacaoInput.isNotBlank()) {
+                            localizacao = localizacaoInput
+                        }
+
 
                         val dados = hashMapOf(
                             "autor" to autor,
                             "descricao" to descricao,
-                            "imageString" to fotoPostString,
-                            "localizacao" to localizacao
+                            "imageString" to fotoPostString
                         )
+
+                        if (localizacao != null) {
+                            dados["localizacao"] = localizacao
+                        }
 
                         db.collection("posts")
                             .add(dados)
                             .addOnSuccessListener {
                                 Toast.makeText(this, "Post salvo com sucesso!", Toast.LENGTH_SHORT).show()
-                                finish()
+                                launchHome()
                             }
                             .addOnFailureListener { e ->
                                 Toast.makeText(this, "Erro ao salvar post: ${e.message}", Toast.LENGTH_LONG).show()
@@ -143,12 +156,6 @@ class NewPostActivity : AppCompatActivity() , LocalizacaoHelper.Callback {
 
         runOnUiThread {
             var infos = endereco.subAdminArea
-            //infos += "\n" + endereco.subLocality
-            //infos += "\n" + endereco.adminArea
-            // += "\n" + endereco.subAdminArea
-            //infos += "\n" + endereco.postalCode
-            //infos += "\n" + endereco.countryName + ", " + endereco.countryCode
-            //infos += "\n" + endereco.getAddressLine(0)
             binding.txtCidade.text = infos
 
         }
@@ -171,5 +178,10 @@ class NewPostActivity : AppCompatActivity() , LocalizacaoHelper.Callback {
             Toast.makeText(this, "Permissão de localização negada",
                 Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun launchHome(){
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
     }
 }
