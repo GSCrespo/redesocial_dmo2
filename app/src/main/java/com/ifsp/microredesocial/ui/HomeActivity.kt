@@ -40,6 +40,9 @@ class HomeActivity : AppCompatActivity() {
         binding.buttonFeed.setOnClickListener {
             loadFeed()
         }
+        binding.buttonPost.setOnClickListener {
+            launchPost()
+        }
     }
 
     private fun signOut(){
@@ -82,6 +85,11 @@ class HomeActivity : AppCompatActivity() {
 
     private fun launchProfile(){
         startActivity(Intent(this, ProfileActivity::class.java))
+        finish()
+    }
+
+    private fun launchPost(){
+        startActivity(Intent(this, NewPostActivity::class.java))
         finish()
     }
 }

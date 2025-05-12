@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.NewPostActivity">
+
+    <ImageView
+        android:id="@+id/logoProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="256dp"
+        android:src="@drawable/emptypost"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guidelineH25"
+        android:layout_marginTop="48dp"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineH25"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_adicionarFoto"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="adicionar foto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineH25"
+        app:backgroundTint="@android:color/holo_blue_light"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textlayout_descricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:hint="Insira aqui a descrição do post"
+        app:layout_constraintEnd_toEndOf="@id/button_adicionarFoto"
+        app:layout_constraintStart_toStartOf="@id/button_adicionarFoto"
+        app:layout_constraintTop_toBottomOf="@id/button_adicionarFoto">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_descricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_cidade"
+        android:text="Endereco da cidade aqui"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textlayout_descricao"
+        />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_getLocalizacao"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="receber localizacao"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_cidade"
+        app:backgroundTint="@android:color/holo_blue_light"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_enviarPost"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Enviar Post"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_getLocalizacao"
+        app:backgroundTint="@android:color/holo_blue_light"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

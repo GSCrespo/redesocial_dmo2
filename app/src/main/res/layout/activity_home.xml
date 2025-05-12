@@ -8,15 +8,27 @@
     tools:context=".ui.HomeActivity">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_sair"
+        android:id="@+id/button_post"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="sair"
+        android:text="Novo Post"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:backgroundTint="@android:color/holo_blue_light"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_sair"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="sair"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_post"
         app:backgroundTint="@android:color/holo_blue_light"/>
 
 
@@ -38,7 +50,7 @@
         android:layout_marginTop="90dp"
         app:layout_constraintEnd_toEndOf="@id/button_feed"
         app:layout_constraintStart_toStartOf="@id/button_feed"
-        app:layout_constraintTop_toBottomOf="@id/button_feed"
+        app:layout_constraintBottom_toBottomOf="@id/button_feed"
         />
 
 
