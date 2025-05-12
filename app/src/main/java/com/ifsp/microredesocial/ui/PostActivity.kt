@@ -29,6 +29,7 @@ class PostActivity : AppCompatActivity() {
             Request.Method.GET, url, null,
             { response ->
                 binding.postDescricao.text = response.getString("descricao")
+                binding.postCidade.text = response.getString("localizacao")
                 val queue = Volley.newRequestQueue(this)
                 val urlImage = "http://10.105.68.94:8080/images/" +
                         response.getString("foto")

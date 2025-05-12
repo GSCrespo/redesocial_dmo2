@@ -16,6 +16,7 @@ class PostAdapter (private val posts: Array<Post>) :
     {
         val imgPost : ImageView = view.findViewById(R.id.imgPost)
         val txtDescricao : TextView = view.findViewById(R.id.descricao)
+        val localizacao : TextView = view.findViewById(R.id.localizacao)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -27,6 +28,7 @@ class PostAdapter (private val posts: Array<Post>) :
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.txtDescricao.text = posts[position].getDescricao()
+        holder.localizacao.text = posts[position].getLocalizacao()
         holder.imgPost.setImageBitmap(posts[position].getFoto())
     }
 }

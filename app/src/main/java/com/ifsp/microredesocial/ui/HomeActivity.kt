@@ -68,9 +68,10 @@ class HomeActivity : AppCompatActivity() {
                     val posts = ArrayList<Post>()
                     for (document in document.documents) {
                         val descricao = document.data!!["descricao"].toString()
+                        val localizacao = document.getString("localizacao") ?: "Indefinido"
                         val imageString = document.data!!["imageString"].toString()
                         val bitmap = Base64Converter.stringToBitmap(imageString)
-                        posts.add(Post(descricao, bitmap))
+                        posts.add(Post(descricao, bitmap,localizacao))
                     }
                     adapter = PostAdapter(posts.toTypedArray())
                     binding.recyclerView.layoutManager = LinearLayoutManager(this)
