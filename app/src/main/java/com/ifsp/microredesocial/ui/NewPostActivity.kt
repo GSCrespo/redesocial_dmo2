@@ -72,6 +72,10 @@ class NewPostActivity : AppCompatActivity() , LocalizacaoHelper.Callback {
         binding.buttonEnviarPost.setOnClickListener {
             salvarPost()
         }
+
+        binding.buttonVoltar.setOnClickListener {
+            launchHome()
+        }
     }
 
 

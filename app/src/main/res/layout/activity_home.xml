@@ -12,6 +12,7 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="Novo Post"
         app:layout_constraintStart_toStartOf="parent"
