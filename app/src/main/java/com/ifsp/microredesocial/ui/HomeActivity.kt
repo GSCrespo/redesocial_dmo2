@@ -23,7 +23,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val listaDePosts = mutableListOf<Post>()
     private var ultimoTimestamp: Timestamp? = null
-    private var carregando = false
+    private var flagCarregando = false
     private lateinit var binding: ActivityHomeBinding
     private val firebaseAuth = FirebaseAuth.getInstance()
     private lateinit var adapter: PostAdapter
@@ -74,8 +74,9 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun carregarPostsPaginados() {
-        if (carregando) return  // Evita múltiplas chamadas simultâneas
-        carregando = true
+
+        if (flagCarregando) return
+        flagCarregando = true
 
         val db = Firebase.firestore
         var query = db.collection("posts")
@@ -87,7 +88,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         query.get().addOnSuccessListener { snapshot ->
-            carregando = false
+            flagCarregando = false
 
             if (!snapshot.isEmpty) {
                 val novosPosts = snapshot.map { doc ->
@@ -98,7 +99,6 @@ class HomeActivity : AppCompatActivity() {
                     Post(descricao, bitmap, localizacao)
                 }
 
-                // Salva o último timestamp para a próxima página
                 ultimoTimestamp = snapshot.documents.last().getTimestamp("data")
 
                 if (::adapter.isInitialized) {
@@ -114,7 +114,7 @@ class HomeActivity : AppCompatActivity() {
             }
 
         }.addOnFailureListener {
-            carregando = false
+            flagCarregando = false
             Toast.makeText(this, "Erro ao carregar posts: ${it.message}", Toast.LENGTH_LONG).show()
         }
     }
@@ -128,7 +128,7 @@ class HomeActivity : AppCompatActivity() {
                 val posts = result.mapNotNull { doc ->
                     val descricao = doc.getString("descricao") ?: ""
                     val local = doc.getString("localizacao") ?: "Indefinida"
-                    val imageString = doc.getString("imageString") ?: return@mapNotNull null
+                    val imageString = doc.getString("imageString") ?: ""
                     val foto = Base64Converter.stringToBitmap(imageString)
                     Post(descricao, foto, local)
                 }
