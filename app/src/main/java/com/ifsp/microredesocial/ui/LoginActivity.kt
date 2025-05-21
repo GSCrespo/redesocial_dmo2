@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
                 .signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        launchProfile()
+                        launchHome()
                     } else {
                         Toast.makeText(this, "Erro na validação do login", Toast.LENGTH_LONG).show()
                     }
@@ -63,8 +63,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun launchProfile(){
-        startActivity(Intent(this, ProfileActivity::class.java))
+    private fun launchHome(){
+        startActivity(Intent(this, HomeActivity::class.java))
         finish()
     }
 
